@@ -1,34 +1,41 @@
-const API_KEY = "TU_API_KEY";
+const API_KEY = "907e2a92ccca47338d284240a37a6776";
 
-async function loadNews() {
-  const res = await fetch(`https://newsapi.org/v2/top-headlines?language=es&pageSize=10&apiKey=${API_KEY}`);
-  const data = await res.json();
+fetch(`https://newsapi.org/v2/top-headlines?language=es&pageSize=10&apiKey=${API_KEY}`)
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("news-container");
 
-  const container = document.getElementById("news-container");
+    container.innerHTML = data.articles.map(article => `
+      <div class="card">
+        <img src="${article.urlToImage || ''}" style="width:100%; border-radius:10px;">
+        <h3>${article.title}</h3>
+        <p>${article.description || ''}</p>
+        <small>${article.source.name}</small><br>
+        <a href="${article.url}" target="_blank">Ver fuente</a>
+      </div>
+    `).join('');
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("news-container").innerHTML = "<p>Error cargando noticias</p>";
+  });const API_KEY = "TU_API_KEY";
 
-  data.articles.forEach(article => {
-    const div = document.createElement("div");
-    div.className = "card";
+fetch(`https://newsapi.org/v2/top-headlines?language=es&pageSize=10&apiKey=${API_KEY}`)
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("news-container");
 
-    div.innerHTML = `
-      <h3>${article.title}</h3>
-      <p>${article.description || ""}</p>
-      <a href="${article.url}" target="_blank">Fuente</a>
-    `;
-
-    container.appendChild(div);
+    container.innerHTML = data.articles.map(article => `
+      <div class="card">
+        <img src="${article.urlToImage || ''}" style="width:100%; border-radius:10px;">
+        <h3>${article.title}</h3>
+        <p>${article.description || ''}</p>
+        <small>${article.source.name}</small><br>
+        <a href="${article.url}" target="_blank">Ver fuente</a>
+      </div>
+    `).join('');
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("news-container").innerHTML = "<p>Error cargando noticias</p>";
   });
-}
-
-loadNews();function loadTicker() {
-  const ticker = document.getElementById("ticker");
-
-  ticker.innerHTML = `
-    🪙 BTC: $67,000 ▲  
-    💰 Oro: $2,300 ▲  
-    🛢️ Petróleo: $78 ▼  
-    📈 S&P 500: 5,200 ▲  
-  `;
-}
-
-loadTicker();
