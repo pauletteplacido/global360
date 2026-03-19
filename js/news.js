@@ -2,7 +2,7 @@
 const API_KEY = "b1970de2f496623d8639d940f4481b7e";
 
 // 📰 NOTICIAS
-fetch(`https://gnews.io/api/v4/top-headlines?lang=es&max=10&token=${API_KEY}`)
+fetch(`https://api.allorigins.win/raw?url=https://gnews.io/api/v4/top-headlines?lang=es&max=10&token=${API_KEY}`)
   .then(res => res.json())
   .then(data => {
     const container = document.getElementById("news-container");
@@ -17,14 +17,10 @@ fetch(`https://gnews.io/api/v4/top-headlines?lang=es&max=10&token=${API_KEY}`)
       </div>
     `).join('');
   })
- .catch(err => {
-  console.error("ERROR REAL:", err);
-  document.getElementById("news-container").innerHTML = `
-    <p>Error cargando noticias</p>
-    <p>${err}</p>
-  `;
-});
-
+  .catch(err => {
+    console.error("ERROR REAL:", err);
+    document.getElementById("news-container").innerHTML = "<p>Error cargando noticias</p>";
+  });
 
 // 📊 TICKER (por ahora con datos simulados pro)
 function loadTicker() {
