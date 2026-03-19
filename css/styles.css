@@ -71,3 +71,30 @@ body {
   margin: 10px 0;
   border-radius: 10px;
 }
+
+#featured-news {
+  margin-bottom: 20px;
+}
+
+.featured {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.featured img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.featured h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
