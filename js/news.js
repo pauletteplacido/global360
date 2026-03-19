@@ -1,5 +1,5 @@
 // 🔑 API
-const API_KEY = "TU_API_KEY";
+const API_KEY = "b1970de2f496623d8639d940f4481b7e";
 
 // 📰 NOTICIAS
 fetch(`https://gnews.io/api/v4/top-headlines?lang=es&max=10&token=${API_KEY}`)
