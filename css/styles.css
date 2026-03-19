@@ -27,10 +27,28 @@ body {
 }
 
 .ticker {
+  width: 100%;
   overflow: hidden;
-  white-space: nowrap;
   background: #020617;
-  padding: 5px;
+  color: #38bdf8;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.ticker-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: tickerMove 25s linear infinite;
+}
+
+.ticker:hover .ticker-content {
+  animation-play-state: paused;
+}
+
+@keyframes tickerMove {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
 }
 
 .ticker-content {
