@@ -1,41 +1,39 @@
-// 🔑 API
-const API_KEY = "b1970de2f496623d8639d940f4481b7e";
+const feeds = [
+  "https://feeds.bbci.co.uk/mundo/rss.xml",
+  "https://cnnespanol.cnn.com/feed/",
+  "https://www.infobae.com/feeds/rss/"
+];
 
-// 📰 NOTICIAS
-const url = `https://gnews.io/api/v4/top-headlines?lang=es&max=10&token=${API_KEY}`;
+const container = document.getElementById("news-container");
 
-fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`)
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("news-container");
+Promise.all(
+  feeds.map(feed =>
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}`)
+      .then(res => res.json())
+  )
+)
+.then(results => {
+  let allNews = [];
 
-    container.innerHTML = data.articles.map(article => `
-      <div class="card">
-        <img src="${article.image || ''}" style="width:100%; border-radius:10px;">
-        <h3>${article.title}</h3>
-        <p>${article.description || ''}</p>
-        <small>${article.source.name}</small><br>
-        <a href="${article.url}" target="_blank">Ver fuente</a>
-      </div>
-    `).join('');
-  })
-  .catch(err => {
-    console.error("ERROR REAL:", err);
-    document.getElementById("news-container").innerHTML = "<p>Error cargando noticias</p>";
+  results.forEach(data => {
+    if (data.items) {
+      allNews = allNews.concat(data.items);
+    }
   });
 
-// 📊 TICKER (por ahora con datos simulados pro)
-function loadTicker() {
-  const ticker = document.getElementById("ticker");
+  // Mezclar noticias
+  allNews.sort(() => 0.5 - Math.random());
 
-  ticker.innerHTML = `
-    🪙 Bitcoin: $67,200 ▲ |
-    💰 Oro: $2,340 ▲ |
-    🛢️ Petróleo: $78 ▼ |
-    📈 S&P 500: 5,210 ▲ |
-    💶 EUR/USD: 1.08 ▲ |
-    🏦 Nasdaq: 16,200 ▲
-  `;
-}
-
-loadTicker();
+  container.innerHTML = allNews.slice(0, 12).map(article => `
+    <div class="card">
+      <img src="${article.thumbnail || ''}" style="width:100%; border-radius:10px;">
+      <h3>${article.title}</h3>
+      <p>${article.description.substring(0, 100)}...</p>
+      <a href="${article.link}" target="_blank">Ver fuente</a>
+    </div>
+  `).join('');
+})
+.catch(err => {
+  console.error(err);
+  container.innerHTML = "<p>Error cargando noticias</p>";
+});
