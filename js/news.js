@@ -1,7 +1,7 @@
 const feeds = [
   "https://feeds.bbci.co.uk/mundo/rss.xml",
-  "https://cnnespanol.cnn.com/feed/",
-  "https://www.infobae.com/feeds/rss/"
+  "https://cnnespanol.cnn.com/feed/"];
+ 
 const container = document.getElementById("news-container");
 const featured = document.getElementById("featured-news");
 
