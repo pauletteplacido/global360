@@ -1,8 +1,7 @@
 const feeds = [
   "https://feeds.bbci.co.uk/mundo/rss.xml",
   "https://cnnespanol.cnn.com/feed/",
-  "https://www.infobae.com/feeds/rss/",
-  "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com"
+  "https://www.infobae.com/feeds/rss/"
 const container = document.getElementById("news-container");
 const featured = document.getElementById("featured-news");
 
